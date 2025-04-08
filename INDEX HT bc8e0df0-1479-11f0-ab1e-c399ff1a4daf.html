@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreativeCrowdChallenge</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Color Variables */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --primary-light: #4895ef;
+            --secondary: #f72585;
+            --secondary-dark: #e5196f;
+            --secondary-light: #ff4d6d;
+            --dark: #212529;
+            --gray-dark: #495057;
+            --gray: #6c757d;
+            --gray-light: #adb5bd;
+            --light: #f8f9fa;
+            --white: #ffffff;
+        }
+        
+        /* Base Styles */
+        body {
+            font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--white);
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--primary-dark);
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        /* Navigation Styles */
+        .nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-link {
+            color: var(--white);
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 0.25rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--light);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--white);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .hamburger-line {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        /* Login Button */
+        .login-btn {
+            background-color: var(--white);
+            color: var(--primary);
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .login-btn:hover {
+            background-color: var(--light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .hero-text {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* CTA Buttons */
+        .cta-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .cta-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-primary {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .cta-primary:hover {
+            background-color: var(--secondary-dark);
+            color: var(--white);
+        }
+        
+        .cta-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .cta-secondary:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Featured Section */
+        .featured {
+            padding: 3rem 0;
+            background-color: var(--light);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        /* Competition Cards */
+        .competitions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .competition-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .competition-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .competition-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .competition-content {
+            padding: 1.5rem;
+        }
+        
+        .competition-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .competition-description {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+        
+        .competition-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            .nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                z-index: 10;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-item {
+                margin: 1.5rem 0;
+            }
+            
+            .nav-link {
+                color: var(--dark);
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hamburger.active .hamburger-line:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active .hamburger-line:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            
+            .hamburger.active .hamburger-line:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-text {
+                font-size: 1rem;
+            }
+            
+            .cta-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .competitions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="#" class="logo">CreativeCrowdChallenge</a>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Competitions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Leaderboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">AI Creator</a>
+                    </li>
+                </ul>
+                <button class="login-btn">Login</button>
+                <div class="hamburger">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">Showcase Your Talent to the World</h1>
+            <p class="hero-text">Join creative competitions, get feedback from the community, and win recognition for your work.</p>
+            <div class="cta-container">
+                <a href="#" class="cta-btn cta-primary">Browse Competitions</a>
+                <a href="#" class="cta-btn cta-secondary">Join Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Competitions Section -->
+    <section class="featured">
+        <div class="container">
+            <h2 class="section-title">Featured Competitions</h2>
+            <div class="competitions-grid">
+                <!-- Competition Card 1 -->
+                <div class="competition-card">
+                    <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d" alt="Summer Photography Contest" class="competition-image">
+                    <div class="competition-content">
+                        <h3 class="competition-title">Summer Photography Contest</h3>
+                        <p class="competition-description">Capture the essence of summer in your most creative photographs.</p>
+                        <div class="competition-meta">
+                            <span>Ends in 14 days</span>
+                            <span>126 participants</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Competition Card 2 -->
+                <div class="competition-card">
+                    <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a" alt="Creative Writing Challenge" class="competition-image">
+                    <div class="competition-content">
+                        <h3 class="competition-title">Creative Writing Challenge</h3>
+                        <p class="competition-description">Write a short story that begins with "The door opened to reveal..."</p>
+                        <div class="competition-meta">
+                            <span>Ends in 7 days</span>
+                            <span>89 participants</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for Mobile Menu Toggle -->
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-menu");
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+        });
+
+        document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+        }));
+    </script>
+</body>
+</html>
